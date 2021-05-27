@@ -1,0 +1,22 @@
+= Reverse proxy
+
+Simple container as reverse proxy.
+
+Use case:
+
+* an existing service using self-signed certificate.
+* another existing service needs to connect to the service but self-signed cert is not accepted.
+* need to introduce access point with valid certificate.
+
+Solution:
+
+* configure Apache reverse proxy container.
+* install to some services that offers valid certificates for endpoints.
+** like IBM Cloud Engine.
+* use Cloud Engine host to access existing service from another existing service.
+
+
+= Usage
+
+
+
