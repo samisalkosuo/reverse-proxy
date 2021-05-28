@@ -20,7 +20,7 @@ sed -i "s|BACKEND_PROTOCOL|${BACKEND_PROTOCOL}|g" /usr/local/apache2/conf/sites/
 if [[ "$LOG" == "true" ]]; then
   #set apache logs as links to system out and system error
   ln -sf /proc/self/fd/1 /usr/local/apache2/logs/access_log && \
-  ln -sf /proc/self/fd/1 /usr/local/apache2/logs/error_log
+  ln -sf /proc/self/fd/2 /usr/local/apache2/logs/error_log
 else
   echo "Access logs: /usr/local/apache2/logs/access_log"
 fi
