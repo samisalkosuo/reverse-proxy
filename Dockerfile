@@ -11,6 +11,5 @@ COPY start-proxy.sh ./
 
 EXPOSE 8080
 
-CMD ["/bin/bash", "/app/start-proxy.sh"]
-#CMD ["httpd", "-D", "FOREGROUND"]
 #CMD ["/bin/bash"]
+CMD ["/bin/bash", "/app/start-proxy.sh"]

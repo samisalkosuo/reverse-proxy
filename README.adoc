@@ -1,6 +1,6 @@
 = Reverse proxy
 
-Simple container as reverse proxy.
+Simple reverse proxy as a container.
 
 Use case:
 
@@ -10,13 +10,19 @@ Use case:
 
 Solution:
 
-* configure Apache reverse proxy container.
-* install to some services that offers valid certificates for endpoints.
+* run container in some service that offers valid certificates for endpoints.
 ** like IBM Cloud Engine.
-* use Cloud Engine host to access existing service from another existing service.
-
+* use host name provided by the service (like IBM Cloud Engine) to access the existing service.
 
 = Usage
 
+* Run reverse proxy:
+** `docker run -d -p 81:8080 -e BACKEND_PROTOCOL=https -e BACKEND_HOST=backend.server.com kazhar/reverse-proxy`
+* Mandatory environment variables
+** BACKEND_PROTOCOL - _http_ or _https_
+** BACKEND_HOST - host (and port) of the backend server
+* Other environment variables:
+** LOG=true - enable logging.
+** LOG_FORMAT - _common_, _combined_ or _combinedio_. Default is _common_.
 
 
