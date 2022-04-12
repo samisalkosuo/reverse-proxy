@@ -11,10 +11,10 @@ Use case:
 Solution:
 
 * run container in some service that offers valid certificates for endpoints.
-** like IBM Cloud Engine.
-* use host name provided by the service (like IBM Cloud Engine) to access the existing service.
+** like IBM Code Engine.
+* use host name provided by the service (like IBM Code Engine) to access the existing service.
 
-= Usage
+== Usage
 
 * Run reverse proxy:
 ** `docker run -d -p 81:8080 -e BACKEND_PROTOCOL=https -e BACKEND_HOST=backend.server.com kazhar/reverse-proxy`
