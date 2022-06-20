@@ -14,8 +14,18 @@ if [[ "$BACKEND_PROTOCOL" == "" ]]; then
   exit 1
 fi
 
-sed -i "s|BACKEND_HOST|${BACKEND_HOST}|g" /usr/local/apache2/conf/sites/reverse_proxy.conf
-sed -i "s|BACKEND_PROTOCOL|${BACKEND_PROTOCOL}|g" /usr/local/apache2/conf/sites/reverse_proxy.conf
+#if TLS_HOSTNAME and TLS_DOMAIN env variables exist, create new certificate
+if [[ "$TLS_HOSTNAME" != "" ]]; then
+  if [[ "$TLS_DOMAIN" != "" ]]; then
+    cd certs 
+    sh create-cert.sh $TLS_HOSTNAME $TLS_DOMAIN
+    cd ..
+  fi
+fi
+
+
+sed -i "s|BACKEND_HOST|${BACKEND_HOST}|g" /usr/local/apache2/conf/sites/reverse-proxy.conf
+sed -i "s|BACKEND_PROTOCOL|${BACKEND_PROTOCOL}|g" /usr/local/apache2/conf/sites/reverse-proxy.conf
 
 if [[ "$LOG" == "true" ]]; then
   #set apache logs as links to system out and system error
