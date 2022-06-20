@@ -11,18 +11,27 @@ Use case:
 Solution:
 
 * run container in some service that offers valid certificates for endpoints.
-** like IBM Code Engine.
-* use host name provided by the service (like IBM Code Engine) to access the existing service.
+** like https://cloud.ibm.com/docs/codeengine[IBM Cloud Code Engine].
+* use host name provided by the service (like https://cloud.ibm.com/docs/codeengine[IBM Cloud Code Engine]) to access the existing service.
 
 == Usage
 
 * Run reverse proxy:
-** `docker run -d -p 81:8080 -e BACKEND_PROTOCOL=https -e BACKEND_HOST=backend.server.com kazhar/reverse-proxy`
+```
+docker run -d -p 81:8080 -e BACKEND_PROTOCOL=https -e BACKEND_HOST=backend.server.com kazhar/reverse-proxy
+```
 * Mandatory environment variables
 ** BACKEND_PROTOCOL - _http_ or _https_
 ** BACKEND_HOST - host (and port) of the backend server
+* Default self-signed certificate is `reverseproxy.local.net`
+** Set custom hostname and domain using TLS_HOSTNAME and TLS_DOMAIN environment variables. For example:
+```
+docker run -d -p 81:8080 -e BACKEND_PROTOCOL=https -e BACKEND_HOST=backend.server.com -e TLS_HOSTNAME=frontend -e TLS_DOMAIN=example.com kazhar/reverse-proxy
+```
 * Other environment variables:
 ** LOG=true - enable logging.
 ** LOG_FORMAT - _common_, _combined_ or _combinedio_. Default is _common_.
-
+* Set CA- certificate as trusted in RHEL-based Linux:
+** Copy `ca.crt` to `/etc/pki/ca-trust/source/anchors/`
+** Execute `update-ca-trust extract`
 
