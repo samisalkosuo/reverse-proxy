@@ -4,6 +4,12 @@ FROM httpd:2.4.54
 ENV DEFAULT_HOSTNAME=reverseproxy
 ENV DEFAULT_DOMAIN=local.net
 
+#uncomment to set variables in image
+#ENV BACKEND_HOST=yle.fi
+#ENV BACKEND_PROTOCOL=https
+#ENV TLS_HOSTNAME=frontend
+#ENV TLS_DOMAIN=example.com
+
 WORKDIR /app
 
 COPY certs/* ./certs/
