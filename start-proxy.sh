@@ -1,4 +1,4 @@
-
+#start Apache
 
 if [[ "$BACKEND_HOST" == "" ]]; then
   echo "BACKEND_HOST environment variable not set."
@@ -48,6 +48,7 @@ case $LOG_FORMAT in
     ;;
 
 esac
+
 #set log format
 sed -i "s|LOG_FORMAT|${__log_format}|g" /usr/local/apache2/conf/httpd.conf
 

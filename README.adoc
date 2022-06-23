@@ -2,11 +2,11 @@
 
 Simple reverse proxy as a container.
 
-Use case:
+Sample use case:
 
 * an existing service using self-signed certificate.
 * another existing service needs to connect to the service but self-signed cert is not accepted.
-* need to introduce access point with valid certificate.
+* so there's a need to have valid certificate.
 
 Solution:
 
@@ -20,18 +20,23 @@ Solution:
 ```
 docker run -d -p 81:8080 -e BACKEND_PROTOCOL=https -e BACKEND_HOST=backend.server.com kazhar/reverse-proxy
 ```
+* In the container:
+** HTTP port is 8080.
+** HTTPS port is 8443.
 * Mandatory environment variables
 ** BACKEND_PROTOCOL - _http_ or _https_
 ** BACKEND_HOST - host (and port) of the backend server
 * Default self-signed certificate is `reverseproxy.local.net`
-** Set custom hostname and domain using TLS_HOSTNAME and TLS_DOMAIN environment variables. For example:
+** Set custom hostname and domain using TLS_HOSTNAME and TLS_DOMAIN environment variables.
+** If these variables are present, self-signed certificate using link:certs/ca.crt[CA] is generated each time container starts.
+** Example:
 ```
 docker run -d -p 81:8080 -e BACKEND_PROTOCOL=https -e BACKEND_HOST=backend.server.com -e TLS_HOSTNAME=frontend -e TLS_DOMAIN=example.com kazhar/reverse-proxy
 ```
 * Other environment variables:
 ** LOG=true - enable logging.
 ** LOG_FORMAT - _common_, _combined_ or _combinedio_. Default is _common_.
-* Set CA- certificate as trusted in RHEL-based Linux:
+* Set CA-certificate as trusted in RHEL-based Linux:
 ** Copy `ca.crt` to `/etc/pki/ca-trust/source/anchors/`
 ** Execute `update-ca-trust extract`
 
